@@ -1,5 +1,4 @@
 import { Button } from "../../../components/ui/button";
-import skaleLogo from "../../../assets/react.svg";
 
 export default function Nav({
   activeSection,
@@ -12,12 +11,16 @@ export default function Nav({
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex h-16 w-full max-w-full items-center justify-between px-4 md:max-w-7xl">
         <div className="flex items-center gap-2">
-          <img
-            src={skaleLogo || "/placeholder.svg"}
-            alt="SKALE Logo"
-            className="h-8 w-auto"
-          />
-          <span className="text-xl font-bold">SKALE</span>
+          <a
+            href="/"
+            className="cursor-pointer text-xl font-bold"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            SKALE
+          </a>
         </div>
         <nav className="hidden gap-6 md:flex">
           {[
@@ -32,7 +35,7 @@ export default function Nav({
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`hover:text-primary text-sm font-medium transition-colors ${
+              className={`hover:text-primary cursor-pointer text-sm font-medium transition-colors ${
                 activeSection === item.id
                   ? "text-primary"
                   : "text-muted-foreground"
@@ -43,12 +46,16 @@ export default function Nav({
           ))}
         </nav>
         <Button
-          className="hidden md:flex"
+          className="hidden cursor-pointer md:flex"
           onClick={() => scrollToSection("contact")}
         >
           Get Involved
         </Button>
-        <Button variant="outline" size="icon" className="md:hidden">
+        <Button
+          variant="outline"
+          size="icon"
+          className="cursor-pointer md:hidden"
+        >
           <span className="sr-only">Toggle menu</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

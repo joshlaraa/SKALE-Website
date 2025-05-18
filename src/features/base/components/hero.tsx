@@ -1,5 +1,5 @@
 import { Button } from "../../../components/ui/button";
-import { ChevronRight, School } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 export default function Hero({
   scrollToSection,
@@ -7,7 +7,7 @@ export default function Hero({
   scrollToSection: (id: string) => void;
 }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white py-20 md:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-b from-blue-100 to-white py-20 md:py-32">
       <div className="relative z-10 container mx-auto w-full max-w-full px-4 md:max-w-7xl">
         <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-8">
           <div className="space-y-6">
@@ -36,9 +36,11 @@ export default function Hero({
             </div>
           </div>
           <div className="bg-muted relative h-[300px] overflow-hidden rounded-lg sm:h-[400px] lg:h-[500px]">
-            <div className="text-muted-foreground absolute inset-0 flex items-center justify-center">
-              <School className="h-24 w-24" />
-            </div>
+            <img
+              src="/team2.jpeg"
+              alt="SKALE Team"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
           </div>
         </div>
       </div>

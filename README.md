@@ -1,3 +1,5 @@
+<img src="public/skaleWebsite.png" alt="SKALE Website Screenshot" width="1724" />
+
 # SKALE Website
 
 SKALE (Student Knowledge and Applied Learning in Engineering) is a student-led initiative at California State University San Marcos (CSUSM) that empowers engineering students to build real-world skills through hands-on projects and community collaboration. Originally focused on the University Rover Challenge, the team strategically pivoted to develop an autonomous navigation golf cart, a project more aligned with student interests in AI, electronics, and distributed systems.

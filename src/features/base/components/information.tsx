@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -18,12 +21,89 @@ import {
   Calendar,
   ArrowRight,
   ExternalLink,
-  MapPin,
   Mail,
-  Github,
-  Linkedin,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+
+function Slideshow() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const images = [
+    "/acd202Presentation.jpeg",
+    "/acd202Handshake.jpeg",
+    "/acd202Hackthon.jpeg",
+    "acd202Equipment.jpeg",
+    "/acd202Drone.jpeg",
+    "/acd202.jpeg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const goToPrevious = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length,
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  return (
+    <div className="relative h-full w-full">
+      {images.map((image, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
+            index === currentIndex
+              ? "opacity-100"
+              : "pointer-events-none opacity-0"
+          }`}
+        >
+          <img
+            src={image || "/placeholder.svg"}
+            alt={`Engineering space slide ${index + 1}`}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      ))}
+
+      <button
+        onClick={goToPrevious}
+        className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={goToNext}
+        className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
+
+      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`h-2 w-2 rounded-full ${index === currentIndex ? "bg-white" : "bg-white/50"}`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Information() {
   return (
@@ -102,7 +182,9 @@ export default function Information() {
           </div>
           <div className="grid gap-12 lg:grid-cols-2">
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold">University Rover Challenge</h3>
+              <h3 className="text-2xl font-bold">
+                University Rover Challenge Idea
+              </h3>
               <p className="text-muted-foreground">
                 The University Rover Challenge is a head-to-head competition
                 where universities from across the country compete against each
@@ -110,6 +192,16 @@ export default function Information() {
                 which many rovers complete several tasks and are awarded points
                 based on efficiency.
               </p>
+              <div className="mt-4 overflow-hidden rounded-lg">
+                <video
+                  src="/roverObstacle_rotated.mp4"
+                  controls
+                  className="w-full"
+                  poster="/placeholder.svg?height=400&width=600"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
             <div className="space-y-6">
               <h3 className="text-2xl font-bold">Our Journey</h3>
@@ -149,6 +241,27 @@ export default function Information() {
                   <p>
                     After thorough review, the team decided to pivot our project
                     focus from the URC to an Autonomous Navigation Golf Cart.
+                  </p>
+                </li>
+                <li className="flex gap-3">
+                  <div className="bg-primary flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white">
+                    5
+                  </div>
+                  <p>
+                    The team presented the idea of the Autonomous Navigation
+                    Golf Cart to Bob, Alex, and potential new supportors. They
+                    were all very impressed with our transition and thought it
+                    was a great idea!
+                  </p>
+                </li>
+                <li className="flex gap-3">
+                  <div className="bg-primary flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white">
+                    6
+                  </div>
+                  <p>
+                    With school year coming to an end, Bob and Alex wanted to do
+                    one last check in with the team and introduce Richard and
+                    Bleema to the team.
                   </p>
                 </li>
               </ul>
@@ -271,49 +384,6 @@ export default function Information() {
               </TabsContent>
             </Tabs>
           </div>
-          <div className="bg-primary/5 mt-16 rounded-lg p-8">
-            <h3 className="mb-4 text-2xl font-bold">
-              SKALE: Student Knowledge and Applied Learning in Engineering
-            </h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <div className="bg-primary flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white">
-                  ✓
-                </div>
-                <p>
-                  Highlights our focus on building student success through
-                  technical development
-                </p>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="bg-primary flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white">
-                  ✓
-                </div>
-                <p>
-                  Emphasizes our commitment to scaling up various student
-                  organizations and building an engineering community at CSUSM
-                </p>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="bg-primary flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white">
-                  ✓
-                </div>
-                <p>
-                  Put your continued support forefront as we develop this
-                  initiative!
-                </p>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="bg-primary flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white">
-                  ✓
-                </div>
-                <p>
-                  Establish the solidity of our team and open up marketing to a
-                  wider community
-                </p>
-              </li>
-            </ul>
-          </div>
         </div>
       </section>
 
@@ -329,12 +399,9 @@ export default function Information() {
             </p>
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
-            <div className="bg-muted relative h-[300px] overflow-hidden rounded-lg sm:h-[400px]">
-              <div className="text-muted-foreground absolute inset-0 flex items-center justify-center">
-                <MapPin className="h-24 w-24" />
-                <span className="absolute bottom-4 left-4 rounded-md bg-white/80 px-3 py-1 text-sm font-medium">
-                  ACD202
-                </span>
+            <div className="relative h-[300px] overflow-hidden rounded-lg bg-black sm:h-[400px] lg:h-[500px]">
+              <div className="relative h-full w-full">
+                <Slideshow />
               </div>
             </div>
             <div className="space-y-6">
@@ -498,73 +565,6 @@ export default function Information() {
               </CardContent>
             </Card>
           </div>
-          <div className="mt-16 rounded-lg border p-8">
-            <h3 className="mb-6 text-2xl font-bold">Budget Analysis</h3>
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="border-b">
-                    <th className="px-4 py-2 text-left">Item</th>
-                    <th className="px-4 py-2 text-right">Cost</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">3D Printing Lab</td>
-                    <td className="px-4 py-2 text-right">$2,452.29</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">Decorations</td>
-                    <td className="px-4 py-2 text-right">$514.89</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">Tools (drills, hex, etc.)</td>
-                    <td className="px-4 py-2 text-right">$539.69</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">
-                      RealSense Camera, Batteries, X650 Dev Kit
-                    </td>
-                    <td className="px-4 py-2 text-right">$1,850.96</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">Robotics 360° Perception Kit</td>
-                    <td className="px-4 py-2 text-right">$5,599.00</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">Jetson Nano Board</td>
-                    <td className="px-4 py-2 text-right">$439.00</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">SlamTec Lidar</td>
-                    <td className="px-4 py-2 text-right">$1,039.39</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">Intel Realsense Camera</td>
-                    <td className="px-4 py-2 text-right">$646.99</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">
-                      Motors, ToF, Batteries, Featherboard, etc.
-                    </td>
-                    <td className="px-4 py-2 text-right">$169.15</td>
-                  </tr>
-                  <tr className="border-b font-medium">
-                    <td className="px-4 py-2">Total (without golf cart)</td>
-                    <td className="px-4 py-2 text-right">~$13,251.36</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="px-4 py-2">Electric Golf Cart Vehicle</td>
-                    <td className="px-4 py-2 text-right">$4,000 – $10,000</td>
-                  </tr>
-                  <tr className="font-bold">
-                    <td className="px-4 py-2">Total (with golf cart)</td>
-                    <td className="px-4 py-2 text-right">~$17,000 - $24,000</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -609,7 +609,13 @@ export default function Information() {
                     </span>
                   </li>
                 </ul>
-                <Button className="w-full">Join as a Student</Button>
+                <a
+                  href="https://teams.microsoft.com/l/team/19%3ANiGSUmdX_Cu_JOd3XvXz88c71NzpFBMQdwPhglBDJmo1%40thread.tacv2/conversations?groupId=6dbd5285-27df-4696-bc1b-d7eaee08a069&tenantId=128753ab-cb28-4f82-9733-2b9b91d2aca9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="w-full">Join as a Student</Button>
+                </a>
               </CardContent>
             </Card>
             <Card>
@@ -627,7 +633,7 @@ export default function Information() {
                 <ul className="space-y-2">
                   <li className="flex items-center gap-2">
                     <Calendar className="text-primary h-5 w-5" />
-                    <span>Attend our showcase events</span>
+                    <span>Attend our showcase presentations</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <ExternalLink className="text-primary h-5 w-5" />
@@ -635,34 +641,44 @@ export default function Information() {
                   </li>
                   <li className="flex items-center gap-2">
                     <Mail className="text-primary h-5 w-5" />
-                    <span>Subscribe to our newsletter for updates</span>
+                    <span>Reach out to mentor or sponsor student projects</span>
                   </li>
                 </ul>
-                <Button className="w-full" variant="outline">
-                  Support Our Mission
-                </Button>
+                <a
+                  href="mailto:jmorales@csusm.edu,jmorris@csusm.edu?cc=larag001@csusm.edu,spurl004@csusm.edu,telle056@csusm.edu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="w-full" variant="outline">
+                    Support Our Mission
+                  </Button>
+                </a>
               </CardContent>
             </Card>
           </div>
-          <div className="mt-16 text-center">
-            <h3 className="mb-4 text-2xl font-bold">Connect With Us</h3>
-            <div className="flex justify-center gap-4">
-              <Button variant="outline" size="icon">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </Button>
-              <Button variant="outline" size="icon">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </Button>
-              <Button variant="outline" size="icon">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Button>
+        </div>
+      </section>
+      <footer className="border-t bg-gray-50 py-12">
+        <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-bold">SKALE</span>
+            </div>
+            <p className="text-muted-foreground text-sm">
+              © {new Date().getFullYear()} SKALE - Student Knowledge and
+              Applied Learning in Engineering at CSUSM
+            </p>
+            <div className="flex gap-6">
+              <a className="text-muted-foreground hover:text-primary text-sm">
+                Privacy Policy
+              </a>
+              <a className="text-muted-foreground hover:text-primary text-sm">
+                Terms of Service
+              </a>
             </div>
           </div>
         </div>
-      </section>
+      </footer>
     </>
   );
 }
