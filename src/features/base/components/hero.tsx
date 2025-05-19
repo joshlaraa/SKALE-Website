@@ -37,7 +37,7 @@ export default function Hero({
           </div>
           <div className="bg-muted relative h-[300px] overflow-hidden rounded-lg sm:h-[400px] lg:h-[500px]">
             <img
-              src="/team2.png"
+              src="https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/team2_h4n9et.jpg"
               alt="SKALE Team"
               width={600}
               height={400}

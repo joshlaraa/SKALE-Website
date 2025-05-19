@@ -31,12 +31,12 @@ function Slideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    "/acd202Presentation.png",
-    "/acd202Handshake.png",
-    "/acd202Hackthon.png",
-    "acd202Equipment.png",
-    "/acd202Drone.png",
-    "/acd202.png",
+    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Presentation_eoegp0.jpg",
+    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Handshake_gbgpzc.jpg",
+    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Workshop_vxcm6p.jpg",
+    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Equipment_fmggbo.jpg",
+    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/acd202Drone_uourju.jpg",
+    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/acd202_drzqeu.jpg",
   ];
 
   useEffect(() => {
@@ -197,7 +197,7 @@ export default function Information() {
               </p>
               <div className="mt-4 overflow-hidden rounded-lg">
                 <video
-                  src="/roverObstacle_rotated.mp4"
+                  src="https://res.cloudinary.com/dndzimyjp/video/upload/v1747686960/roverObstacle_rotated_cxl9mu.mp4"
                   controls
                   className="w-full"
                   poster="/placeholder.svg?height=400&width=600"
