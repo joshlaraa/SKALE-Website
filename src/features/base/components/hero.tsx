@@ -7,7 +7,7 @@ export default function Hero({
   scrollToSection: (id: string) => void;
 }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-100 to-white py-20 md:py-32">
+    <section className="to-white-50 relative overflow-hidden bg-gradient-to-b from-blue-100 py-20 md:py-24">
       <div className="relative z-10 container mx-auto w-full max-w-full px-4 md:max-w-7xl">
         <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-8">
           <div className="space-y-6">
@@ -37,8 +37,11 @@ export default function Hero({
           </div>
           <div className="bg-muted relative h-[300px] overflow-hidden rounded-lg sm:h-[400px] lg:h-[500px]">
             <img
-              src="/team2.jpeg"
+              src="/team2.png"
               alt="SKALE Team"
+              width={600}
+              height={400}
+              loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>

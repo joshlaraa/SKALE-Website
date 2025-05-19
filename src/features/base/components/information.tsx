@@ -31,12 +31,12 @@ function Slideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    "/acd202Presentation.jpeg",
-    "/acd202Handshake.jpeg",
-    "/acd202Hackthon.jpeg",
-    "acd202Equipment.jpeg",
-    "/acd202Drone.jpeg",
-    "/acd202.jpeg",
+    "/acd202Presentation.png",
+    "/acd202Handshake.png",
+    "/acd202Hackthon.png",
+    "acd202Equipment.png",
+    "/acd202Drone.png",
+    "/acd202.png",
   ];
 
   useEffect(() => {
@@ -71,6 +71,9 @@ function Slideshow() {
           <img
             src={image || "/placeholder.svg"}
             alt={`Engineering space slide ${index + 1}`}
+            width={600}
+            height={400}
+            loading="lazy"
             className="h-full w-full object-cover"
           />
         </div>
@@ -198,6 +201,7 @@ export default function Information() {
                   controls
                   className="w-full"
                   poster="/placeholder.svg?height=400&width=600"
+                  preload="none"
                 >
                   Your browser does not support the video tag.
                 </video>
