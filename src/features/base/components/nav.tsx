@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "../../../components/ui/button";
+import { Menu, X } from "lucide-react";
 
 export default function Nav({
   activeSection,
@@ -7,6 +11,27 @@ export default function Nav({
   activeSection: string;
   scrollToSection: (id: string) => void;
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const navItems = [
+    { id: "introduction", label: "Introduction" },
+    { id: "history", label: "History" },
+    { id: "project-pivot", label: "Project Pivot" },
+    { id: "new-space", label: "New Space" },
+    { id: "goals", label: "Goals" },
+    { id: "vision", label: "Vision" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  const handleNavClick = (id: string) => {
+    scrollToSection(id);
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex h-16 w-full max-w-full items-center justify-between px-4 md:max-w-7xl">
@@ -23,19 +48,11 @@ export default function Nav({
           </a>
         </div>
         <nav className="hidden gap-6 md:flex">
-          {[
-            { id: "introduction", label: "Introduction" },
-            { id: "history", label: "History" },
-            { id: "project-pivot", label: "Project Pivot" },
-            { id: "new-space", label: "New Space" },
-            { id: "goals", label: "Goals" },
-            { id: "vision", label: "Vision" },
-            { id: "contact", label: "Contact" },
-          ].map((item) => (
+          {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`hover:text-primary cursor-pointer text-sm font-medium transition-colors ${
+              className={`hover:text-primary cursor-pointer text-sm font-medium transition-colors hover:cursor-pointer ${
                 activeSection === item.id
                   ? "text-primary"
                   : "text-muted-foreground"
@@ -55,26 +72,45 @@ export default function Nav({
           variant="outline"
           size="icon"
           className="cursor-pointer md:hidden"
+          onClick={toggleMenu}
+          aria-expanded={isMenuOpen}
+          aria-label="Toggle menu"
         >
           <span className="sr-only">Toggle menu</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-6 w-6"
-          >
-            <line x1="4" x2="20" y1="12" y2="12" />
-            <line x1="4" x2="20" y1="6" y2="6" />
-            <line x1="4" x2="20" y1="18" y2="18" />
-          </svg>
+          {isMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </Button>
       </div>
+
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <div className="fixed inset-x-0 top-16 z-50 border-b bg-white shadow-lg md:hidden">
+          <div className="container mx-auto flex flex-col space-y-4 px-4 py-4">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`cursor-pointer py-2 text-left text-sm font-medium transition-colors hover:cursor-pointer ${
+                  activeSection === item.id
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <Button
+              className="mt-2 w-full"
+              onClick={() => handleNavClick("contact")}
+            >
+              Get Involved
+            </Button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

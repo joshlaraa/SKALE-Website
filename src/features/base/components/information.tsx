@@ -326,11 +326,9 @@ export default function Information() {
             <Tabs defaultValue="autonomous">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="autonomous">
-                  Autonomous Navigation Modules
+                  Autonomous Golf Cart
                 </TabsTrigger>
-                <TabsTrigger value="rover">
-                  University Rover Challenge
-                </TabsTrigger>
+                <TabsTrigger value="rover">University Rover</TabsTrigger>
               </TabsList>
               <TabsContent
                 value="autonomous"
