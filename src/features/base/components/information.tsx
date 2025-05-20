@@ -1,3 +1,6 @@
+// Main information page for SKALE website
+// Contains sections: Introduction, History, Project Pivot, New Engineering Space, Goals, Vision, Contact, and Footer
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -24,19 +27,47 @@ import {
   Mail,
   ChevronLeft,
   ChevronRight,
+  Download,
 } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 
+import { downloadFile } from "@/lib/download-helper";
+
+// Slideshow component for displaying images in the New Engineering Space section
 function Slideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Presentation_eoegp0.jpg",
-    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Handshake_gbgpzc.jpg",
-    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Workshop_vxcm6p.jpg",
-    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Equipment_fmggbo.jpg",
-    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/acd202Drone_uourju.jpg",
-    "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/acd202_drzqeu.jpg",
+    {
+      src: "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Presentation_eoegp0.jpg",
+      alt: "ACD202 Presentation",
+      filename: "ACD202_Presentation.jpg",
+    },
+    {
+      src: "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Handshake_gbgpzc.jpg",
+      alt: "ACD202 Handshake",
+      filename: "ACD202_Handshake.jpg",
+    },
+    {
+      src: "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Workshop_vxcm6p.jpg",
+      alt: "ACD202 Workshop",
+      filename: "ACD202_Workshop.jpg",
+    },
+    {
+      src: "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686961/acd202Equipment_fmggbo.jpg",
+      alt: "ACD202 Equipment",
+      filename: "ACD202_Equipment.jpg",
+    },
+    {
+      src: "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/acd202Drone_uourju.jpg",
+      alt: "ACD202 Drone",
+      filename: "ACD202_Drone.jpg",
+    },
+    {
+      src: "https://res.cloudinary.com/dndzimyjp/image/upload/v1747686960/acd202_drzqeu.jpg",
+      alt: "ACD202",
+      filename: "ACD202.jpg",
+    },
   ];
 
   useEffect(() => {
@@ -58,51 +89,66 @@ function Slideshow() {
   };
 
   return (
-    <div className="relative h-full w-full">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
-            index === currentIndex
-              ? "opacity-100"
-              : "pointer-events-none opacity-0"
-          }`}
-        >
-          <img
-            src={image || "/placeholder.svg"}
-            alt={`Engineering space slide ${index + 1}`}
-            width={600}
-            height={400}
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
-        </div>
-      ))}
-
-      <button
-        onClick={goToPrevious}
-        className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-      <button
-        onClick={goToNext}
-        className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </button>
-
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-        {images.map((_, index) => (
-          <button
+    <div className="flex h-full w-full flex-col">
+      <div className="relative flex-1">
+        {images.map((image, index) => (
+          <div
             key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`h-2 w-2 rounded-full ${index === currentIndex ? "bg-white" : "bg-white/50"}`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
+            className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
+              index === currentIndex
+                ? "opacity-100"
+                : "pointer-events-none opacity-0"
+            }`}
+          >
+            <img
+              src={image.src || "/placeholder.svg"}
+              alt={image.alt}
+              width={600}
+              height={400}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          </div>
         ))}
+
+        <button
+          onClick={goToPrevious}
+          className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={goToNext}
+          className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+
+        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 w-2 rounded-full ${index === currentIndex ? "bg-white" : "bg-white/50"}`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="bg-muted p-2 text-center">
+        <button
+          onClick={() =>
+            downloadFile(
+              images[currentIndex].src,
+              images[currentIndex].filename,
+            )
+          }
+          className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
+        >
+          <Download className="h-4 w-4" /> Download Image
+        </button>
       </div>
     </div>
   );
@@ -111,7 +157,7 @@ function Slideshow() {
 export default function Information() {
   return (
     <>
-      {/* Introduction Section */}
+      {/* Introduction Section: Overview of SKALE's mission and values */}
       <section id="introduction" className="bg-white py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -172,7 +218,7 @@ export default function Information() {
         </div>
       </section>
 
-      {/* History Section */}
+      {/* History Section: Timeline and story of SKALE's journey */}
       <section id="history" className="bg-gray-50 py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -196,15 +242,30 @@ export default function Information() {
                 based on efficiency.
               </p>
               <div className="mt-4 overflow-hidden rounded-lg">
-                <video
-                  src="https://res.cloudinary.com/dndzimyjp/video/upload/v1747686960/roverObstacle_rotated_cxl9mu.mp4"
-                  controls
-                  className="w-full"
-                  poster="/placeholder.svg?height=400&width=600"
-                  preload="none"
-                >
-                  Your browser does not support the video tag.
-                </video>
+                <div className="flex flex-col">
+                  <video
+                    src="https://res.cloudinary.com/dndzimyjp/video/upload/v1747686960/roverObstacle_rotated_cxl9mu.mp4"
+                    controls
+                    className="w-full"
+                    poster="/placeholder.svg?height=400&width=600"
+                    preload="none"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="bg-muted p-2 text-center">
+                    <button
+                      onClick={() =>
+                        downloadFile(
+                          "https://res.cloudinary.com/dndzimyjp/video/upload/v1747686960/roverObstacle_rotated_cxl9mu.mp4",
+                          "SKALE_Rover_Obstacle.mp4",
+                        )
+                      }
+                      className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
+                    >
+                      <Download className="h-4 w-4" /> Download Video
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="space-y-6">
@@ -274,7 +335,7 @@ export default function Information() {
         </div>
       </section>
 
-      {/* Project Pivot Section */}
+      {/* Project Pivot Section: Why the team shifted focus and comparison of projects */}
       <section id="project-pivot" className="bg-white py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -389,7 +450,7 @@ export default function Information() {
         </div>
       </section>
 
-      {/* New Engineering Space Section */}
+      {/* New Engineering Space Section: Details about the new student engineering space and slideshow */}
       <section id="new-space" className="bg-gray-50 py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -451,7 +512,7 @@ export default function Information() {
         </div>
       </section>
 
-      {/* Goals Section */}
+      {/* Goals Section: Current semester goals and ongoing projects */}
       <section id="goals" className="bg-white py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -508,7 +569,7 @@ export default function Information() {
         </div>
       </section>
 
-      {/* Vision Section */}
+      {/* Vision Section: Plans for the next academic year */}
       <section id="vision" className="bg-gray-50 py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -570,7 +631,7 @@ export default function Information() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact Section: How students and supporters can get involved */}
       <section id="contact" className="bg-white py-20">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="mb-12 space-y-4 text-center">
@@ -660,6 +721,8 @@ export default function Information() {
           </div>
         </div>
       </section>
+
+      {/* Footer: Copyright and links */}
       <footer className="border-t bg-gray-50 py-12">
         <div className="container mx-auto w-full max-w-full px-4 md:max-w-7xl">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">

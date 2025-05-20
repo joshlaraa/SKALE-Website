@@ -1,3 +1,6 @@
+// Navigation bar component for the SKALE website
+// Handles both desktop and mobile navigation, including section scrolling and menu toggling
+
 "use client";
 
 import { useState } from "react";
@@ -11,12 +14,15 @@ export default function Nav({
   activeSection: string;
   scrollToSection: (id: string) => void;
 }) {
+  // State for mobile menu open/close
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Navigation items for each section
   const navItems = [
     { id: "introduction", label: "Introduction" },
     { id: "history", label: "History" },
@@ -27,12 +33,14 @@ export default function Nav({
     { id: "contact", label: "Contact" },
   ];
 
+  // Handle navigation click: scroll and close mobile menu
   const handleNavClick = (id: string) => {
     scrollToSection(id);
     setIsMenuOpen(false);
   };
 
   return (
+    // Header with sticky navigation bar
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex h-16 w-full max-w-full items-center justify-between px-4 md:max-w-7xl">
         <div className="flex items-center gap-2">
@@ -47,6 +55,7 @@ export default function Nav({
             SKALE
           </a>
         </div>
+        {/* Desktop navigation links */}
         <nav className="hidden gap-6 md:flex">
           {navItems.map((item) => (
             <button
@@ -68,6 +77,7 @@ export default function Nav({
         >
           Get Involved
         </Button>
+        {/* Mobile menu button */}
         <Button
           variant="outline"
           size="icon"
@@ -85,7 +95,7 @@ export default function Nav({
         </Button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu dropdown */}
       {isMenuOpen && (
         <div className="fixed inset-x-0 top-16 z-50 border-b bg-white shadow-lg md:hidden">
           <div className="container mx-auto flex flex-col space-y-4 px-4 py-4">
